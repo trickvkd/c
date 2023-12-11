@@ -1,0 +1,24 @@
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize,sent_tokenize
+nltk.download('stopwords')
+nltk.download('punkt')
+nltk.download('averaged_perceptron_tagger')
+stop_words=set(stopwords.words('english'))
+txt="Hello.MCA S3 is fantastic.We learn many new concepts and implement them in our practical exams."\
+"1st of all the data science is a new paper."
+tokenized = sent_tokenize(txt)
+for i in tokenized:
+   wordsList= nltk.word_tokenize(i)
+   wordsList= [w for w in wordsList if not w in stop_words]
+   tagged = nltk.pos_tag(wordsList)
+   print(tagged)
+def generate_N_grams(text,ngram=1):
+  words=[word for word in text.split(" ") if word not in set(stopwords.words('english'))]
+  print("Sentence after removing stopwords:",words)
+  temp=zip(*[words[i:] for i in range(0,ngram)])
+  ans=[''.join(ngram) for ngram in temp]
+  return ans
+generate_N_grams("The sun rises in the east",2)
+generate_N_grams("The sun rises in the east",3)
+generate_N_grams("The sun rises in the east",4)
